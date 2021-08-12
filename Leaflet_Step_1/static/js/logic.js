@@ -98,7 +98,7 @@ d3.json(usgsURL).then(function (response) {
                 
                     '<i style="background:' + getColor(depths[i] + 1) +'"></i> ' +
                     // '<i class="circle" style="background:' + categories[i] + '"></i> ' +
-                    depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+');
+                    depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + ' ' +'<br>' : '+');
         }
         // div.innerHTML = labels.join('<br>');
         return div;
