@@ -1,118 +1,108 @@
-var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
-d3.json(url).then(function (data) {
-    createFeatures(data.features);
+var usgsURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+// d3.json(usgsUrl).then(function (data) {
+//     createFeatures(data.features)
+// });
+
+
+// Layer Group for geoJSON Dataset
+var earthquakes = new L.LayerGroup();
+
+// Tile Layers (base maps)
+var earthMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
 });
 
-function createFeatures(earthquakeData) {
-    function onEachFeature(features, layer) {
-        layer.bindPopup(`<h3>Place: ${features.properties.place}</h3><p>Date: ${new Date(features.properties.time)}</p><p>Magnitude: ${features.properties.mag}</p>
-        <p>Depth: ${features.geometry.coordinates[2]}</p>`);
-    }
-    var earthquakes = L.geoJSON(earthquakeData, {
-        onEachFeature: onEachFeature
-    });
-    createMap(earthquakes);
-}
-function createMap(earthquakes) {
-    var earth = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
-    })
-    var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-
-    });
-    var baseMaps = {
-    "Earth Map": earth, 
-    "Topographic Map": topo
+// BaseMap Object for BaseLayers
+var baseMaps = {
+    "Earth Map": earthMap
 };
 
+// Overlay Object for Overlay Layers (geoJSON)
 var overlayMaps = {
-    "Significant Earthquakes": earthquakes
+    "Earthquakes": earthquakes
 };
 
 var myMap = L.map("map", {
-    // center: [37.7749, -122.4194],
     center: [0, 0],
-    zoom: 5,
-    layers: [earth, earthquakes]
+    zoom: 3,
+    layers: [earthMap, earthquakes]
 });
 
 L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
-}).addTo(myMap)
-}
+}).addTo(myMap);
+
+// Retrieve Data
 
 
-// // var legend = L.control({ position: 'bottomright' });
-// // legend.onAdd = function (map) {
+d3.json(usgsURL).then(function (response) {
+    console.log(response);
 
-// //     var div = L.DomUtil.create('div', 'info legend');
-// //     var labels = [],
-// //         var categories = [];
+    for (var i = 0; i < response.length; i++) {
+        console.log(response[i])
+    };
 
-// //     for (var i = 0; i < categories.length; i++) {
+    function markerSize(magnitude) {
+        if (magnitude === 0) {
+            return 1;
+        }
+        return magnitude = Math.sqrt(magnitude) * 10;
+    };
 
-// //         div.innerHTML +=
-// //             labels.push(
-// //                 '<i style="background:' + getColor(depth[i] + 1) + '"></i> ' +
-// //                 // '<i class="circle" style="background:' + categories[i] + '"></i> ' +
-// //                 (categories[i] ? categories[i] : '+'));
+    function styleInfo(features) {
+        return {
+            opacity: 1,
+            fillOpacity: 1,
+            fillColor: getColor(features.geometry.coordinates[2]),
+            color: "#000000",
+            radius: markerSize(features.properties.mag),
+            stroke: true,
+            weight: 0.3
+        }
+    };
 
-// //     }
-// //     div.innerHTML = labels.join('<br>');
-// //     return div;
-// };
-// legend.addTo(myMap);
+    function getColor(depth) {
+        return  depth > 90 ? '#800026' :
+                depth > 70 ? '#BD0026' :
+                depth > 50 ? '#E31A1C' :
+                depth > 30 ? '#FC4E2A' :
+                depth > 10 ? '#FD8D3C' :
+                depth < 10 ? '#FEB24C' :
+                             '#FFEDA0';
 
-
-// function createMarkers(response) {
-//     console.log(response);
-//     var locationMarkers = [];
-//     for (var i = 0; i < response.features.length; i++) {
-//         console.log(response.features[i].geometry.coordinates[1]);
-
-
-//         var magnitude = response.features[i].properties;
-//         var places = response.features[i].properties;
-
-//         var times = response.features[i].properties;
-//         var depth = response.features[i].geometry.coordinates[2];
-
-//         // var locationMarker = L.marker([location.coordinates[1], location.coordinates[0]]); //bind popup
-//         var locationMarker = L.circleMarker([response.features[i].geometry.coordinates[1], response.features[i].geometry.coordinates[0]],
-//             {
-//                 color: getColor(response.features[i].geometry.coordinates[2]),
-//                 opacity: 1,
-//                 weight: 2,
-//                 fillOpacity: 1,
-//                 radius: markerSize(response.features[i].properties.mag)
-
-//             })
-//             .bindPopup("<h3> Place: " + places.place + "<h3> Date: " + times.time + "<h3> Magnitude: " + magnitude.mag +
-//                 "<h3> Depth: " + depth + "</h3>");
-//         locationMarkers.push(locationMarker);
-
-//     }
-
-//     function markerSize(mag) {
-//         return Math.sqrt(mag) * 10;
-//     }
-//     function getColor(depth) {
-//         return depth > 90 ? '#800026' :
-//             depth > 70 ? '#BD0026' :
-//                 depth > 50 ? '#E31A1C' :
-//                     depth > 30 ? '#FC4E2A' :
-//                         depth > 10 ? '#FD8D3C' :
-//                             depth < 10 ? '#FEB24C' :
-//                                 '#FFEDA0';
-//     }
+    };
 
 
-//     createMap(L.layerGroup(locationMarkers));
+    L.geoJSON(response, {
+        pointToLayer: function (features, latlng) {
+            return L.circleMarker(latlng);
+        },
+        style: styleInfo,
+        onEachFeature: function (features, layer) {
+            layer.bindPopup(`<h3>Place: ${features.properties.place}</h3><hr><p>Date: ${new Date(features.properties.time)}</p><p>Magnitude: ${features.properties.mag}</p>
+                 <p>Depth: ${features.geometry.coordinates[2]}</p>`);
+        }
+    }).addTo(myMap);
+    
+    var legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function() {
+        
+        var div = L.DomUtil.create('div', 'info legend');
+        depths = [0, 10, 30, 50, 70, 90];
+        var labels = [];
+        // var categories = [];
 
-// }
+        for (var i = 0; i < depths.length; i++) {
 
+            div.innerHTML +=
+                
+                    '<i style="background:' + getColor(depths[i] + 1) +'"></i> ' +
+                    // '<i class="circle" style="background:' + categories[i] + '"></i> ' +
+                    depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+');
+        }
+        // div.innerHTML = labels.join('<br>');
+        return div;
+    };
+    legend.addTo(myMap);
+});
 
-// // var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
-// var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
-// d3.json(url).then(createMarkers);
