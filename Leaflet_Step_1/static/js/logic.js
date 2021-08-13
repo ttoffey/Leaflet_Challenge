@@ -1,16 +1,15 @@
 var usgsURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
-// d3.json(usgsUrl).then(function (data) {
-//     createFeatures(data.features)
-// });
-
+var tectonicURL = "https://github.com/fraxen/tectonicplates"
 
 // Layer Group for geoJSON Dataset
-var earthquakes = new L.LayerGroup();
+var earthquakes = new L.LayerGroup()
+var plates = new L.LayerGroup();
 
 // Tile Layers (base maps)
 var earthMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
 });
+
 
 // BaseMap Object for BaseLayers
 var baseMaps = {
@@ -20,7 +19,9 @@ var baseMaps = {
 // Overlay Object for Overlay Layers (geoJSON)
 var overlayMaps = {
     "Earthquakes": earthquakes
+    
 };
+
 
 var myMap = L.map("map", {
     center: [0, 0],
@@ -28,9 +29,10 @@ var myMap = L.map("map", {
     layers: [earthMap, earthquakes]
 });
 
-L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-}).addTo(myMap);
+// L.control.layers(baseMaps, overlayMaps, {
+//     collapsed: false
+// }).addTo(myMap);
+L.control.layers(baseMaps, overlayMaps).addTo(myMap);
 
 // Retrieve Data
 
@@ -83,7 +85,10 @@ d3.json(usgsURL).then(function (response) {
                  <p>Depth: ${features.geometry.coordinates[2]}</p>`);
         }
     }).addTo(myMap);
-    
+
+   
+
+
     var legend = L.control({ position: 'bottomright' });
     legend.onAdd = function() {
         
@@ -106,3 +111,4 @@ d3.json(usgsURL).then(function (response) {
     legend.addTo(myMap);
 });
 
+ 
