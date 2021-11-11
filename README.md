@@ -33,7 +33,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 ### Level 2: More Data (Optional)
 
-![5-Advanced](./Images/TectonicPlates.png)
+![5-Advanced](./Images/3-Advanced.png)
 
 The USGS requested a second plot of a second data set on the map to illustrate the relationship between tectonic plates and seismic activity. Data on tectonic plates was found at <https://github.com/fraxen/tectonicplates>.
 
