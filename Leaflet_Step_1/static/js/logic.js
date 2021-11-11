@@ -29,10 +29,11 @@ var myMap = L.map("map", {
     layers: [earthMap, earthquakes]
 });
 
-// L.control.layers(baseMaps, overlayMaps, {
-//     collapsed: false
-// }).addTo(myMap);
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+}).addTo(myMap);
+
+// L.control.layers(baseMaps, overlayMaps).addTo(myMap);
 
 // Retrieve Data
 
