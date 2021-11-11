@@ -13,7 +13,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
     
 1. **The Data Set**
 
-   ![3-Data](./Images/3-DataSet.png)
+   ![3-Data](./Images/3-Data.png)
 
    The USGS provides earthquake data in a number of different formats, updated every 5 minutes. Visit the [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and pick a data set to visualize. This project uses the "All Earthquakes for the Past 7 Days.
 
