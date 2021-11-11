@@ -1,6 +1,6 @@
 # Leaflet_Challenge
 
-![1-Logo](./Images/Logo.png)
+![1-Logo](./Images/1-Logo.png)
 
 Welcome to the United States Geological Survey, or USGS for short. The USGS is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment; and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes. As a new hire, you will be helping them out with an exciting new project!
 
@@ -13,7 +13,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
     
 1. **The Data Set**
 
-   ![3-Data](./Images/DataSet.png)
+   ![3-Data](./Images/3-DataSet.png)
 
    The USGS provides earthquake data in a number of different formats, updated every 5 minutes. Visit the [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and pick a data set to visualize. This project uses the "All Earthquakes for the Past 7 Days.
 
@@ -21,7 +21,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 2. **Import & Visualize the Data**
 
-    ![BasicMap](Images/BasicMap.png)
+    ![BasicMap](./Images/2-BasicMap.png)
 
    The map above was created using Leaflet and plots all of the earthquakes from the selected data set based on their longitude and latitude.
 
