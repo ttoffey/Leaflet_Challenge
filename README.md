@@ -1,6 +1,6 @@
 # Leaflet_Challenge
 
-![1-Logo](Images/Logo.png)
+![1-Logo](./Images/Logo.png)
 
 Welcome to the United States Geological Survey, or USGS for short. The USGS is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment; and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes. As a new hire, you will be helping them out with an exciting new project!
 
@@ -13,11 +13,11 @@ The USGS is interested in building a new set of tools that will allow them to vi
     
 1. **The Data Set**
 
-   ![3-Data](Images/DataSet.png)
+   ![3-Data](./Images/DataSet.png)
 
    The USGS provides earthquake data in a number of different formats, updated every 5 minutes. Visit the [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and pick a data set to visualize. This project uses the "All Earthquakes for the Past 7 Days.
 
-   ![4-JSON](Images/4-JSON.png)
+   ![4-JSON](./Images/4-JSON.png)
 
 2. **Import & Visualize the Data**
 
@@ -33,7 +33,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 ### Level 2: More Data (Optional)
 
-![5-Advanced](Images/TectonicPlates.png)
+![5-Advanced](./Images/TectonicPlates.png)
 
 The USGS requested a second plot of a second data set on the map to illustrate the relationship between tectonic plates and seismic activity. Data on tectonic plates was found at <https://github.com/fraxen/tectonicplates>.
 
@@ -44,15 +44,5 @@ The USGS requested a second plot of a second data set on the map to illustrate t
 * Would like to add in the alert level showing estimated fatalaties and losses in dollars. Alert levels are color coded and so were depths. 
 * Should markers appear on all layers and should they be functional on all layers?
 
-### Assessment
 
-Your final product will be assessed according to [this grading rubric](Leaflet_Grading_Rubric.pdf)
 
-**Good luck!**
-
-## Rubric
-
-[Unit 15 Rubric - Leaflet Homework - Visualizing Data with Leaflet](https://docs.google.com/document/d/1kDNeT4a54ik_AZrHYN3LmVMqH0hDuiwbK2h5lHNxumQ/edit?usp=sharing)
-
-___
-© 2021  Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.	
