@@ -44,5 +44,7 @@ The USGS requested a second plot of a second data set on the map to illustrate t
 * Would like to add in the alert level showing estimated fatalaties and losses in dollars. Alert levels are color coded and so were depths. 
 * Should markers appear on all layers and should they be functional on all layers?
 
+___
+© 2021  Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.	
 
 
